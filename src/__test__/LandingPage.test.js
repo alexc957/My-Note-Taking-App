@@ -34,7 +34,7 @@ test("feature 1 should exists",()=> {
 
 test("feature 2 should exists",()=> {
     const {getByTestId} = render(<LandinPage/>) 
-    const featuresEl = getByTestId("feature2")
+    const featuresEl = getByTestId("feature3")
 
     expect(featuresEl.textContent).toBe("Create and edit notes by using markdown")
 
@@ -42,7 +42,7 @@ test("feature 2 should exists",()=> {
 
 test("feature 3 should exists",()=> {
     const {getByTestId} = render(<LandinPage/>) 
-    const featuresEl = getByTestId("feature3")
+    const featuresEl = getByTestId("feature2")
 
     expect(featuresEl.textContent).toBe("Delete your notes on demand")
 
@@ -50,7 +50,7 @@ test("feature 3 should exists",()=> {
 
 test("feature 4 should exists",()=> {
     const {getByTestId} = render(<LandinPage/>) 
-    const featuresEl = getByTestId("feature3")
+    const featuresEl = getByTestId("feature4")
 
     expect(featuresEl.textContent).toBe("Share your notes by using twitter")
 
