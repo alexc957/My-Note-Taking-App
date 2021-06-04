@@ -20,9 +20,8 @@ function App() {
   
   return (
     <Router>
-      {/* here should a navbar */}
-      <NavBar/>
-      <Switch>
+   
+       <Switch>
         <Route path="/signup">
           <SignUp/>
         </Route>
@@ -39,8 +38,8 @@ function App() {
         </Route>
       </Switch>
 
-      {/* here should be a footer*/ }
-      <Footer/>
+     
+      
 
     </Router>
 

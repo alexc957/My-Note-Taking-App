@@ -8,6 +8,9 @@ module.exports = {
         dark: "#161F6D",
         DEFAULT: "#00ABE1"
       }
+    },
+    textColor: {
+      'primary': "#fcfcfc"
     }
   },
   variants: {

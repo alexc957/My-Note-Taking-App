@@ -12,7 +12,7 @@ const icons = [
 
 export default function Features() {
     return (
-        <section className="mb-2">
+        <section className="mb-8">
             <h3 data-testid="features" className="text-center ">Features</h3>
             <div className="flex flex-row justify-center mt-8 p-0 m-0">
                 <div className="mr-2 flex flex-col p-0 m-0 content-center">   
