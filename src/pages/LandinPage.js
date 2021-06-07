@@ -16,6 +16,7 @@ export default function LandinPage() {
                   
            {/*   header goes here */ }
            <Header/> 
+         
 
            {/* feature section goes here  */}
            <Features />

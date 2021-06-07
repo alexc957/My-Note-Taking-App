@@ -1,6 +1,6 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-
+import { MemoryRouter } from 'react-router-dom'
 import "@testing-library/jest-dom/extend-expect";
 
 import App from '../App';
@@ -70,9 +70,7 @@ test("has 'border-b-2' in the className ", ()=> {
 
 
 })
-test("has page title ", ()=> {
 
-})
 
 test("has 'border-r-2' in the className",()=>{
     const {getByTestId} = render(<App />)
@@ -126,6 +124,24 @@ test('should exist a premium section', () => {
     })
     
 })
+
+test('should navigate to SignUp page', () => {
+    const {getByTestId,getAllByTestId} = render(
+    <MemoryRouter>
+            <App />
+        </MemoryRouter>)
+    const buttonEl = screen.getByTestId("button-Free")
+    fireEvent.click(buttonEl)
+
+    const account = screen.getByTestId('title')
+
+
+ 
+    expect(account.textContent).toBe("Create an Account")
+
+        
+})
+
 
 
 
