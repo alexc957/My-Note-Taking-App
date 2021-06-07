@@ -42,6 +42,7 @@ export default function SignUp() {
 
 
                     <div className="flex flex-row items-center pb-4">
+                        
                     <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8">Sign Up</button>
                     <span>Already have an Account? <p className="text-blue inline" data-testid="login">login</p></span> 
                     </div>
