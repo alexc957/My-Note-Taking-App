@@ -1,9 +1,17 @@
 import React from 'react'
+import Footer from '../components/Footer'
+import NavBar from '../components/NavBar'
 
 export default function MainPage() {
     return (
-        <div className="h-auto">
-    
-        </div>
+        <>
+        <NavBar/>
+        <section className="flex flex-row">
+                hello
+
+        
+        </section>
+        <Footer/>
+        </>
     )
 }

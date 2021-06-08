@@ -1,8 +1,10 @@
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 
 import "@testing-library/jest-dom/extend-expect";
 import SignUp from '../pages/SignUp';
+import { MemoryRouter } from 'react-router';
+import App from '../App';
 
 
 test('should Email label exist', () => {
@@ -46,6 +48,7 @@ test('should title exist', () => {
     expect(account.textContent).toBe("Create an Account")
 
 })
+
 
 
 
