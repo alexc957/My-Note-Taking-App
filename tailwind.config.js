@@ -14,7 +14,8 @@ module.exports = {
     },
     textColor: {
       'primary': "#fcfcfc",
-      "blue": "#00ABE1"
+      "blue": "#00ABE1",
+      "error": "#d31e15"
     },
     borderRadius: {
       'none': '0',

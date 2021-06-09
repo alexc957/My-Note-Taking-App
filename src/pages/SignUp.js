@@ -1,22 +1,47 @@
-import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
+import { Link, useHistory } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
+import { createAccount } from '../firebase/services'
 
 export default function SignUp() {
     const [email, setEmail] = useState('')
     const [username, setUsername] = useState('')
     const [password,setPassword] = useState('')
+    const [error, setError] = useState('')
+    let history = useHistory()
+
+ 
+
+
+    const submitForm = async (event)=> {
+        event.preventDefault()
+        if(username && email && password){
+            try{
+                const user = await createAccount(email,password, username)
+               setError("")
+                history.push("/login")
+             }catch(e){
+                 console.log(e.message);
+                 setError(e.message)
+             }    
+
+
+        }else{
+            setError("Fill the require fields")
+        }
+      
+    }
     return (
         <> 
             <NavBar/>
 
             <div className="container-sm flex flex-col items-center">
-                <div className="border-2 w-1/3  rounded-large m-4 shadow-lg bg-gray h-96">
+                <div className="border-2 w-1/3 rounded-large m-4 shadow-lg bg-gray h-96">
                 <h3 className="text-center" data-testid="title">Create an Account</h3>
-
-                <form className="flex flex-col m-4">
+            {error && <p className="text-sm text-error text-center">{error}</p>}
+                <form className="flex flex-col m-4" onSubmit={submitForm}>
                     <label htmlFor="email" data-testid="email">Email</label>
                     <input 
                         data-testid="input-mail" 
@@ -47,8 +72,8 @@ export default function SignUp() {
 
                     <div className="flex flex-row items-center pb-4">
                         
-                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8" ><a href="/login" data-testid="signup-btn">Sign Up</a></button>
-                    <span>Already have an Account? <p className="text-blue inline" data-testid="login">login</p></span> 
+                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8" ><a id="test-button" to="/login" data-testid="signup-btn">Sign Up</a></button>
+                    <span className="text-sm">Already have an Account? <p className="text-blue inline" data-testid="login">login</p></span> 
                     </div>
 
 
