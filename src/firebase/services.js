@@ -7,8 +7,8 @@ export async function createAccount(email,password, username){
         
     
         const user = await firebase.auth().createUserWithEmailAndPassword(email,password)
-        await addUserToFirestore(email, username)
-        return user.user
+        const userCreated = await addUserToFirestore(email, username)
+        return userCreated
 }
 
 
@@ -17,6 +17,7 @@ export async function addUserToFirestore(email, username){
         email,
         username
     })
+    return user
 
 }
 

@@ -44,6 +44,8 @@ export default function Login() {
                 <div className="border-2 w-1/3  rounded-large m-4 shadow-lg bg-gray h-96">
                 <h3 className="text-center" data-testid="title">Log In</h3>
 
+                {error && <p className="text-sm text-error text-center">{error}</p>}
+
                 <form className="flex flex-col m-4" onSubmit={handleLogin}>
                     <label htmlFor="email" data-testid="email">Email</label>
                     <input  

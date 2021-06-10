@@ -72,12 +72,11 @@ test('should input in the form fields', () => {
     expect(emailInput.value).toBe('test@mail.com')
     expect(passwdInput.value).toBe('test64878')
 
-
-
-
-
     
 })
+
+
+
 
 
 

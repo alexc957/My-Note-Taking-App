@@ -17,10 +17,12 @@ export default function SignUp() {
 
     const submitForm = async (event)=> {
         event.preventDefault()
+        console.log("entre a la funcion?");
         if(username && email && password){
             try{
+                console.log('entre aqui');
                 const user = await createAccount(email,password, username)
-               setError("")
+                setError("")
                 history.push("/login")
              }catch(e){
                  console.log(e.message);
@@ -40,7 +42,7 @@ export default function SignUp() {
             <div className="container-sm flex flex-col items-center">
                 <div className="border-2 w-1/3 rounded-large m-4 shadow-lg bg-gray h-96">
                 <h3 className="text-center" data-testid="title">Create an Account</h3>
-            {error && <p className="text-sm text-error text-center">{error}</p>}
+            {error && <p className="text-sm text-error text-center" data-testid="error-message">{error}</p>}
                 <form className="flex flex-col m-4" onSubmit={submitForm}>
                     <label htmlFor="email" data-testid="email">Email</label>
                     <input 
@@ -72,7 +74,7 @@ export default function SignUp() {
 
                     <div className="flex flex-row items-center pb-4">
                         
-                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8" ><a id="test-button" to="/login" data-testid="signup-btn">Sign Up</a></button>
+                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8" data-testid="submit-btn">Sign Up</button>
                     <span className="text-sm">Already have an Account? <p className="text-blue inline" data-testid="login">login</p></span> 
                     </div>
 
