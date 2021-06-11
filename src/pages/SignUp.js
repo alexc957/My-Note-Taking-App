@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Link, useHistory } from 'react-router-dom'
 import Footer from '../components/Footer'
 import Header from '../components/Header'
 import NavBar from '../components/NavBar'
-import { createAccount } from '../firebase/services'
+import FirebaseContext from '../context/firebase'
+
 
 export default function SignUp() {
     const [email, setEmail] = useState('')
@@ -12,16 +13,25 @@ export default function SignUp() {
     const [error, setError] = useState('')
     let history = useHistory()
 
+    const firebase = useContext(FirebaseContext);
+
  
 
 
     const submitForm = async (event)=> {
         event.preventDefault()
         console.log("entre a la funcion?");
-        if(username && email && password){
+        if(username!=='' && email!=='' && password!==''){
             try{
-                console.log('entre aqui');
-                const user = await createAccount(email,password, username)
+                console.log("creating the login");
+                await firebase.auth().createUserWithEmailAndPassword(email, password)
+                console.log('creating the user in firestore');
+                await firebase.firestore().collection('users').add({
+                    email: email, username: username
+                })
+                console.log('finishing both');
+
+           
                 setError("")
                 history.push("/login")
              }catch(e){

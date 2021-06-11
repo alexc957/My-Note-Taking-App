@@ -5,31 +5,44 @@ import './App.css';
 import {  BrowserRouter as Router,
   Switch,
   Route,
-  Link } from 'react-router-dom';
+  Link, 
+  Redirect} from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import MainPage from './pages/MainPage';
 import LandinPage from './pages/LandinPage';
-
+import FirebaseContext from './context/firebase';
+import {firebase} from './firebase/index';
+import { useSelector } from 'react-redux';
+import { selectDocId } from './features/User/userSlice';
 
 
 function App() {
 
-  
+  const userDocId = useSelector(selectDocId);
+
+ 
   
   return (
+    
+    <FirebaseContext.Provider value={firebase}>
+      
+
+    
     <Router>
    
        <Switch>
         <Route path="/signup">
-          <SignUp/>
+        {!userDocId? <SignUp/> : <Redirect to="/notes"/> }
+          
         </Route>
         <Route path="/login">
-          <Login />
-
+          
+          
+          {!userDocId? <Login /> : <Redirect to="/notes"/> }
         </Route>
         <Route path="/notes">
-          <MainPage />
+          {userDocId? <MainPage /> : <Redirect to="/"/> } 
         </Route>
         <Route path="/">
           <LandinPage />
@@ -41,6 +54,7 @@ function App() {
       
 
     </Router>
+    </FirebaseContext.Provider>
 
   );
 }

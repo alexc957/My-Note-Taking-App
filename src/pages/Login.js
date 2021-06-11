@@ -1,11 +1,12 @@
-import React, {useState} from 'react'
+import React, {useContext, useState} from 'react'
 import Footer from '../components/Footer'
 import NavBar from '../components/NavBar'
-import {useSelector, useDispatch} from 'react-redux'
+import {useDispatch} from 'react-redux'
 
 import {logInUser} from '../features/User/userSlice'
-import { logIntoAccount } from '../firebase/services'
+
 import { useHistory } from 'react-router'
+import FirebaseContext from '../context/firebase'
 
 export default function Login() {
     const [email, setEmail] = useState('')
@@ -14,15 +15,19 @@ export default function Login() {
  
     const [password,setPassword] = useState('')
     const [error, setError] = useState('')
-
+    const firebase = useContext(FirebaseContext)
     const dispatch = useDispatch()
+  
 
     const handleLogin = async (event) => {
         event.preventDefault()
         try{
             if(email && password){
-                const docId = await logIntoAccount(email,password)
-                dispatch(logInUser(docId))
+                const {user} = await firebase.auth().signInWithEmailAndPassword(email, password)
+                const userDetails = await firebase.firestore().collection('users').where('email', "==",user.email).get()
+              //  console.log('what is userDetails',userDetails.docs[0].id);
+               dispatch(logInUser(userDetails.docs[0].id))
+
                 history.push('/notes')
 
 
