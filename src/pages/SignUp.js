@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React, { useContext, useState } from 'react'
+import {  useHistory } from 'react-router-dom'
 import Footer from '../components/Footer'
-import Header from '../components/Header'
+
 import NavBar from '../components/NavBar'
 import FirebaseContext from '../context/firebase'
 

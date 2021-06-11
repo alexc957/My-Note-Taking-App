@@ -6,7 +6,6 @@ import { selectDocId, logOutUser } from '../features/User/userSlice';
 
 export default function NavBar() {
     const userId = useSelector(selectDocId);
-    const location = useLocation()
     const history = useHistory()
     const dispatch = useDispatch()
     console.log(userId);
