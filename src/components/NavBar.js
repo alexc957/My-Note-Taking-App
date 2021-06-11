@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory, useLocation } from 'react-router';
+import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import { selectDocId, logOutUser } from '../features/User/userSlice';
 
@@ -8,7 +8,7 @@ export default function NavBar() {
     const userId = useSelector(selectDocId);
     const history = useHistory()
     const dispatch = useDispatch()
-    console.log(userId);
+
     const handleLogout = () => {
         dispatch(logOutUser())
         history.push("/")
