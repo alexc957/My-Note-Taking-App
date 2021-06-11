@@ -5,8 +5,9 @@ import './App.css';
 import {  BrowserRouter as Router,
   Switch,
   Route,
-  Link, 
-  Redirect} from 'react-router-dom';
+  
+  Redirect,
+  HashRouter} from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import MainPage from './pages/MainPage';
@@ -29,7 +30,7 @@ function App() {
       
 
     
-    <Router>
+    <HashRouter>
    
        <Switch>
         <Route path="/signup">
@@ -53,7 +54,7 @@ function App() {
      
       
 
-    </Router>
+    </HashRouter>
     </FirebaseContext.Provider>
 
   );
