@@ -20,16 +20,16 @@ export default function SignUp() {
 
     const submitForm = async (event)=> {
         event.preventDefault()
-        console.log("entre a la funcion?");
+    
         if(username!=='' && email!=='' && password!==''){
             try{
-                console.log("creating the login");
+               
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
-                console.log('creating the user in firestore');
+           
                 await firebase.firestore().collection('users').add({
                     email: email, username: username
                 })
-                console.log('finishing both');
+            
 
            
                 setError("")
