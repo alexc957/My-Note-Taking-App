@@ -38,6 +38,6 @@ export const notebookSlice = createSlice({
 export const {setNotebook}  = notebookSlice.actions;
 
 export const selectNotes = (state) => state.notebook.notebooks; 
-export const 
+
 
 export default notebookSlice.reducer; 
