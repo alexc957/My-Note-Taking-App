@@ -22,7 +22,7 @@ export default function NotebookSection() {
                 setNewNotebook(false)
 
             } catch(e){
-                console.log(e);
+             
                 setNotebooks([])
 
             }

@@ -2,10 +2,10 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import {firebase} from '../firebase/index'
 import "@testing-library/jest-dom/extend-expect";
-import Login from '../pages/Login';
+
 import { Provider } from 'react-redux';
 import { store } from '../app/store';
-import FirebaseContext from '../context/firebase';
+
 import { MemoryRouter } from 'react-router';
 
 
