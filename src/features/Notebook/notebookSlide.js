@@ -1,24 +1,43 @@
-import { createSlice } from '@reduxjs/toolkit';
-
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import {firebase} from '../../firebase/index'
 
 
 const initialState = {
-    notebooks: []
+    currentNotebook: '',
+    notes: []
 }
+
+const fetchByNotebookDocId = createAsyncThunk(
+    'notebook/fetchByNotebookDocId',
+    async (docId, thunkApi)=>{
+        const response = await firebase.firestore().collection("notebooks").doc(docId).get()
+        return response.data().notes 
+    }
+)
 
 export const notebookSlice = createSlice({
     name: "notebook",
     initialState,
     reducers:{
-        setNotebooks: (state, action) => {
-            state.notebooks = action.payload;
+        setNotebook: (state, action) => {
+
+            state.currentNotebook = action.payload.currentNotebook;
+
+        },
+        
+        
+    },
+    extraReducers: {
+        [fetchByNotebookDocId.fulfilled]: (state, action) =>{
+            state.notes = action.payload
         }
     }
 })
 
 
-export const {setNotebooks}  = notebookSlice.actions;
+export const {setNotebook}  = notebookSlice.actions;
 
-export const selectNotebooks = (state) => state.notebook.notebooks; 
+export const selectNotes = (state) => state.notebook.notebooks; 
+export const 
 
 export default notebookSlice.reducer; 

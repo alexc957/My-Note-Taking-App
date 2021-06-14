@@ -1,42 +1,74 @@
-import React, { useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import FirebaseContext from '../../context/firebase'
+import { selectDocId } from '../../features/User/userSlice'
+import {createNotebooksByUserId, editTitle} from '../../firebase/services'
 
-const InputElement = ({disabled, title}) => {
-
-    return (<input className="bg-white" value={title} disabled={disabled} />)
-}
 
 export default function NotebookSection() {
-    const [notebooks, setNotebooks] = useState([ {title: "title "}, {title: "s"}])
+    const [notebooks, setNotebooks] = useState([])
     const [newNotebook, setNewNotebook] = useState(false)
     const [title, setTitle] = useState('')
     const [editIndex, setEditIndex] = useState(-1)
+    const userDocId = useSelector(selectDocId);
+    const firebase = useContext(FirebaseContext);
 
-    const handleKeyEnter = (event) => {
-        if(event.key === 'Enter'){
-
-            if(editIndex===-1){
-                setNewNotebook(!newNotebook)
-                setNotebooks([...notebooks, {title: title}])
-                setTitle('')
-              
-
-            }else {
-                setNotebooks([...notebooks.map((notebook,index)=> {
-                    if(index===editIndex){
-                        notebook.title = title 
-                        return notebook 
-    
-                    }
-                    return notebook
-                })])
+    useEffect(()=> {
+        const getNotebooksByUserId = async () => {    
+            try {
+                const getNotebooks = await firebase.firestore().collection("notebooks").where("createdBy",'==',userDocId).get()
            
-                setEditIndex(-1)
-                setTitle('')
+                setNotebooks(getNotebooks.docs.map((e)=>({id: e.id,...e.data()})))
+                setNewNotebook(false)
+
+            } catch(e){
+                console.log(e);
+                setNotebooks([])
 
             }
 
+        }
+        getNotebooksByUserId()
+    }, [])
 
-         
+    const handleKeyEnter = async (event) => {
+        if(event.key === 'Enter'){
+
+            if(editIndex===-1){
+                try{
+                    const newNotebookDoc = await createNotebooksByUserId(userDocId, title)
+                    setNotebooks([...notebooks, {id:newNotebookDoc, title: title}])
+                    setTitle('')
+
+                }catch(e){
+
+                }
+              
+
+            }else {
+                setNewNotebook(false)
+                 
+                
+                try{
+                    setNotebooks([...notebooks.map((notebook,index)=> {
+                        if(index===editIndex){
+                            notebook.title = title 
+                            return notebook 
+        
+                        }
+                        return notebook
+                    })])
+                    await editTitle(notebooks[editIndex].id,title)
+                    setEditIndex(-1)
+                    setTitle('')
+
+                }catch(e){
+
+                }
+           
+               
+
+            }         
         }
     }
 
@@ -46,6 +78,7 @@ export default function NotebookSection() {
         } else if(event.detail===2){
             setEditIndex(index)
             setTitle(notebooks[index].title)
+            setNewNotebook(false)
 
         }
     }
@@ -64,7 +97,7 @@ export default function NotebookSection() {
                     
                     
             </div>
-            {notebooks.map((notebook,index) => editIndex!==index? <button onClick={(event)=>handleClick(event,index)} className="border-b-2 block w-full" key={index}>{notebook.title}</button> :
+            {notebooks.map((notebook,index) => editIndex!==index? <button onClick={(event)=>handleClick(event,index)} className="border-b-2 block w-full hover:bg-gray" key={index}>{notebook.title}</button> :
                <input key={index} className="border-b-2 block w-full"  value={title} onChange={({target})=> setTitle(target.value)} onKeyPress={handleKeyEnter}  autoFocus/> )}
 
             {newNotebook && <input value={title} onChange={({target})=> setTitle(target.value)} onKeyPress={handleKeyEnter}  autoFocus/>}

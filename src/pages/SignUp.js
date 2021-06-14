@@ -27,7 +27,7 @@ export default function SignUp() {
                 await firebase.auth().createUserWithEmailAndPassword(email, password)
            
                 await firebase.firestore().collection('users').add({
-                    email: email, username: username
+                    email: email, username: username, notebooks: []
                 })
             
 
