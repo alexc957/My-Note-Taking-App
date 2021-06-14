@@ -10,8 +10,13 @@ const initialState = {
 const fetchByNotebookDocId = createAsyncThunk(
     'notebook/fetchByNotebookDocId',
     async (docId, thunkApi)=>{
-        const response = await firebase.firestore().collection("notebooks").doc(docId).get()
-        return response.data().notes 
+        try {
+            const response = await firebase.firestore().collection("notebooks").doc(docId).get()
+            return response.data().notes 
+        }catch(e){
+
+        }
+ 
     }
 )
 
