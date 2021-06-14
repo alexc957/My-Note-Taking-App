@@ -8,7 +8,7 @@ import { store } from '../app/store';
 import FirebaseContext from '../context/firebase';
 import { MemoryRouter } from 'react-router';
 
-test('should Email label exist', () => {
+ test('should Email label exist', () => {
     const {getByTestId} = render( <FirebaseContext.Provider value={firebase}><Provider store ={store}> <MemoryRouter><Login /></MemoryRouter></Provider></FirebaseContext.Provider>)
 
     const emailLabel = getByTestId('email')
