@@ -1,6 +1,14 @@
-import React from 'react'
-
+import React, { useEffect, useState } from 'react'
+import { useSelector } from 'react-redux'
+import {selectCurrentNoteBookId} from '../../features/Notebook/notebookSlide'
 export default function NotesSection() {
+    const currentNotebookId = useSelector(selectCurrentNoteBookId)
+
+   
+
+
+
+
     return (
         <div className="w-56 border-r-2 p-0 h-full" data-testid="notes">
             <div className="border-b-2 p-0 m-0 w-full">
@@ -9,6 +17,7 @@ export default function NotesSection() {
                          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z" clipRule="evenodd" />
                     </svg>
                     <p> New Note </p>
+                    {currentNotebookId}
 
                     </button>
                     
