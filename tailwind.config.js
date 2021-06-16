@@ -10,6 +10,9 @@ module.exports = {
       },
       gray: {
         DEFAULT: "#F5F6F8"
+      },
+      red: {
+        DEFAULT: "#DC1D1D"
       }
     },
     textColor: {

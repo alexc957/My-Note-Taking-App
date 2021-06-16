@@ -1,4 +1,4 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 
 
 
@@ -8,15 +8,7 @@ const initialState = {
 
 }
 
-/*export const fetchNotesByNoteBookId = createAsyncThunk(
-    'notebook/fetchNotesByNoteBookId',
-    async (notebookId,thunkAPI) => {
-        const response = await firebase.firestore().collection("notes").where("notebookId",'==',notebookId).get()
-        const data = response.docs.map((note)=>({id: note.id, ...note.data()}))
-        return data 
-    }
-)
-*/
+
 
 export const notebookSlice = createSlice({
     name: "notebook",

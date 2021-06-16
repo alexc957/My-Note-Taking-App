@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FirebaseContext from '../../context/firebase'
 import { selectDocId } from '../../features/User/userSlice'
 import {createNotebooksByUserId, editTitle} from '../../firebase/services'
-import {setNotebook, selectCurrentNoteBookId} from '../../features/Notebook/notebookSlide'
+import {setNotebook} from '../../features/Notebook/notebookSlide'
  
 
 export default function NotebookSection() {
@@ -14,7 +14,7 @@ export default function NotebookSection() {
     const userDocId = useSelector(selectDocId);
     const firebase = useContext(FirebaseContext);
     const distpatch = useDispatch()
-    const currentNotebookiD = useSelector(selectCurrentNoteBookId)
+
     
 
 
@@ -81,7 +81,7 @@ export default function NotebookSection() {
         if(event.detail===1){
             
             distpatch(setNotebook(notebooks[index].id))
-            console.log('currentnotebook',currentNotebookiD);
+         
        
         } else if(event.detail===2){
             setEditIndex(index)

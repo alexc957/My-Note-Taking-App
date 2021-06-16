@@ -12,7 +12,7 @@ export default function MainPage() {
         <section className="flex flex-row h-full">
                <NotebookSection />
                 <NotesSection />
-                <div className="h-full flex-grow flex flex-row">
+                <div className="h-full flex-grow flex flex-row justify-center items-center">
                     <NoteEdit />
                     <Preview />
 
