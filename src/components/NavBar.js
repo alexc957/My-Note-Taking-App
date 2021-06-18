@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router';
 import { Link } from 'react-router-dom';
 import FirebaseContext from '../context/firebase';
-import { selectDocId, logOutUser } from '../features/User/userSlice';
+import { selectUserEmail, logOutUser } from '../features/User/userSlice';
 
 export default function NavBar() {
-    const userId = useSelector(selectDocId);
+    const userId = useSelector(selectUserEmail);
     const history = useHistory()
     const dispatch = useDispatch()
     const firebase = useContext(FirebaseContext)

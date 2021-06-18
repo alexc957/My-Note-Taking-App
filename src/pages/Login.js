@@ -24,9 +24,9 @@ export default function Login() {
         try{
             if(email && password){
                 const {user} = await firebase.auth().signInWithEmailAndPassword(email, password)
-                const userDetails = await firebase.firestore().collection('users').where('email', "==",user.email).get()
+               // const userDetails = await firebase.firestore().collection('users').where('email', "==",user.email).get()
               //  console.log('what is userDetails',userDetails.docs[0].id);
-               dispatch(logInUser(userDetails.docs[0].id))
+               dispatch(logInUser(user.email))
 
                 history.push('/notes')
 

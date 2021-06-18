@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
-    docId: ''
+    userEmail: ''
 }
 
 export const userSlide = createSlice({
@@ -10,11 +10,11 @@ export const userSlide = createSlice({
     initialState,
     reducers:{
         logInUser: (state,action)=>{
-            state.docId = action.payload
+            state.userEmail = action.payload
 
        },
        logOutUser: (state)=>{
-           state.docId = '' 
+           state.userEmail = '' 
        }
     }
 })
@@ -22,7 +22,7 @@ export const userSlide = createSlice({
 
 export const {logInUser, logOutUser} = userSlide.actions
 
-export const selectDocId = (state) => state.user.docId;
+export const selectUserEmail = (state) => state.user.userEmail;
 
 
 export default userSlide.reducer;
