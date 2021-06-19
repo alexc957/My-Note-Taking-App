@@ -26,7 +26,8 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "cypress": "./node_modules/.bin/cypress"
   },
   "eslintConfig": {
     "extends": "react-app"
