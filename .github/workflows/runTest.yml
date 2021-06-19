@@ -16,5 +16,9 @@ jobs:
           with:
               install: npm install
               start: npm start
+        - name: generate report 
+          run: npx nyc report
+        - name: upload to codecov 
+          uses: codecov/codecov-action@v1
 
 
