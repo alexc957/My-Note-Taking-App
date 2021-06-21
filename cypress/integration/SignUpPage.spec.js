@@ -45,8 +45,8 @@ context("sign up page",()=>{
 
         cy.get('[data-testid=submit-btn]').click()
         cy.wait(2000)
-        cy.intercept('https://www.googleapis.com/*')
-       // cy.get("[data-testid=error-message]").should('have.text','The email address is already in use by another account.')
+     
+       cy.get("[data-testid=title]").should('have.text','Log In')
 
     })
 

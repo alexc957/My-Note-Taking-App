@@ -4,6 +4,7 @@ import FirebaseContext from '../../context/firebase'
 import { selectUserEmail } from '../../features/User/userSlice'
 import {createNotebooksByUserId, editTitle} from '../../firebase/services'
 import {setNotebook} from '../../features/Notebook/notebookSlide'
+import { setNoteId } from '../../features/Markdown/markdownSlice'
  
 
 export default function NotebookSection() {
@@ -81,6 +82,7 @@ export default function NotebookSection() {
         if(event.detail===1){
             
             distpatch(setNotebook(notebooks[index].id))
+            distpatch(setNoteId(''))
          
        
         } else if(event.detail===2){
@@ -105,7 +107,7 @@ export default function NotebookSection() {
                     
                     
             </div>
-            {notebooks.map((notebook,index) => editIndex!==index? <button onClick={(event)=>handleClick(event,index)} className="border-b-2 block w-full hover:bg-gray" data-testid={`nb-${notebook.title.replace(/ /g,'-')}`} key={index}>{notebook.title}</button> :
+            {notebooks.map((notebook,index) => editIndex!==index? <button onClick={(event)=>handleClick(event,index)}  data-cy="notebook" className="border-b-2 block w-full hover:bg-gray" data-testid={`nb-${notebook.title.replace(/ /g,'-')}`} data-cy="notebook" key={index}>{notebook.title}</button> :
                <input key={index} className="border-b-2 block w-full" data-testid="input-edit" value={title} onChange={({target})=> setTitle(target.value)} onKeyPress={handleKeyEnter}  autoFocus/> )}
 
             {newNotebook && <input value={title} onChange={({target})=> setTitle(target.value)} onKeyPress={handleKeyEnter} data-testid="input-notebook"  autoFocus/>}

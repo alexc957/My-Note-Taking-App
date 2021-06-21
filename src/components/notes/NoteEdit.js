@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {selectBody, selectNoteId, setBody} from '../../features/Markdown/markdownSlice'
+import {selectBody, selectNoteId, setBody, setCreatedAt} from '../../features/Markdown/markdownSlice'
 import { addBodytoNote } from '../../firebase/services'
 export default function NoteEdit() {
 
@@ -17,6 +17,7 @@ export default function NoteEdit() {
     const saveNote = async () => {
         try {
             await addBodytoNote(noteId,body)
+            dispatch(setCreatedAt((new Date()).toDateString()))
         }catch(e){}
         
 
@@ -26,7 +27,7 @@ export default function NoteEdit() {
         <div data-testid="edit" className="w-1/3 h-2/3 border-2 justify-between rounded-large bg-gray shadow-2xl flex flex-col">
             <h3 className="text-center"> Markdown</h3>
             
-            <textarea value={body} className="mx-4 h-2/3 p-2" onChange={({target})=> dispatch(setBody(target.value))}>
+            <textarea value={body} data-testid="input-markdown" className="mx-4 h-2/3 p-2" onChange={({target})=> dispatch(setBody(target.value))}>
 
             </textarea>
 

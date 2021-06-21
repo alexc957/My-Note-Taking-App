@@ -37,6 +37,7 @@ export async function createNoteByNotebookId(notebookId, title, body) {
 export async function addBodytoNote(noteId, body) {
 
     await firebase.firestore().collection('notes').doc(noteId).update({
+        createAt: (new Date()).toDateString(),
         body: body,
     })
     
