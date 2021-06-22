@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import FirebaseContext from '../../context/firebase'
 import { selectUserEmail } from '../../features/User/userSlice'
 import {createNotebooksByUserId, editTitle} from '../../firebase/services'
-import {setNotebook} from '../../features/Notebook/notebookSlide'
+import {selectCurrentNoteBookId, setNotebook, setNotes} from '../../features/Notebook/notebookSlide'
 import { setNoteId } from '../../features/Markdown/markdownSlice'
  
 
@@ -15,6 +15,7 @@ export default function NotebookSection() {
     const currentMail = useSelector(selectUserEmail);
     const firebase = useContext(FirebaseContext);
     const distpatch = useDispatch()
+    const currentNotebookId = useSelector(selectCurrentNoteBookId)
 
     
 
@@ -78,10 +79,12 @@ export default function NotebookSection() {
         }
     }
 
-    const handleClick = (event,index) => {
+    const handleClick = async (event,index) => {
         if(event.detail===1){
             
             distpatch(setNotebook(notebooks[index].id))
+            const response = await firebase.firestore().collection('notes').where('notebookId','==',currentNotebookId).get()
+            distpatch(setNotes(response.docs.map((item)=>({id: item.id,...item.data()}))))
             distpatch(setNoteId(''))
          
        

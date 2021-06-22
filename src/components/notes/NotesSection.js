@@ -1,23 +1,24 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FirebaseContext from '../../context/firebase'
-import { selectNoteId, setNoteId } from '../../features/Markdown/markdownSlice'
-import {selectCurrentNoteBookId} from '../../features/Notebook/notebookSlide'
+import { selectNoteId, setBody, setNoteId } from '../../features/Markdown/markdownSlice'
+import {selectCurrentNoteBookId, selectNotes, setNotes} from '../../features/Notebook/notebookSlide'
 import { createNoteByNotebookId } from '../../firebase/services'
 export default function NotesSection() {
     const currentNotebookId = useSelector(selectCurrentNoteBookId)
 
-    const [notes, setNotes] = useState([])
+    //const [notes, setNotes] = useState([])
     const [newNote, setNewNote] = useState(false)
     const [title, setTitle] = useState('')
     const dispatch = useDispatch()
     const noteId = useSelector(selectNoteId)
+    const notes = useSelector(selectNotes);
     
     
     const firebase = useContext(FirebaseContext);
 
     
-    useEffect(()=>{
+    /*useEffect(()=>{
         const getNotes = async () => {
             try{
                 const response = await firebase.firestore().collection('notes').where('notebookId','==',currentNotebookId).get()
@@ -32,7 +33,7 @@ export default function NotesSection() {
             getNotes()
             
         }
-    }, [currentNotebookId])
+    }, [currentNotebookId])*/
 
     if(!currentNotebookId){
         return <div></div>
@@ -43,7 +44,7 @@ export default function NotesSection() {
         if(event.key === 'Enter'){
             try{
                 const currentId = await createNoteByNotebookId(currentNotebookId,title,'');
-                setNotes([...notes, {id: currentId, title: title}])
+                dispatch(setNotes([...notes, {id: currentId, title: title}]))
                 
                 setTitle('')
                 setNewNote(false)
@@ -57,11 +58,12 @@ export default function NotesSection() {
     }
 
     const handleClick = (event,index) => {
-        console.log(index);
+        
         const selectedNote = notes[index]
-        console.log('whats is the selected note', selectedNote.id);
-
+      
+            console.log('selected note', selectedNote);
             dispatch(setNoteId(selectedNote.id))
+            dispatch(setBody(selectedNote.body))
         
     
     

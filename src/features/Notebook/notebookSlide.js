@@ -1,9 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { act } from '@testing-library/react';
 
 
 
 const initialState = {
     docId: '',
+    notes: []
     
 
 }
@@ -22,6 +24,10 @@ export const notebookSlice = createSlice({
          
             
         },
+        setNotes: (state,action)=>{
+            state.notes = action.payload;
+        }
+
         
         
     },
@@ -29,10 +35,10 @@ export const notebookSlice = createSlice({
 })
 
 
-export const {setNotebook}  = notebookSlice.actions;
+export const {setNotebook,setNotes}  = notebookSlice.actions;
 
 
 export const selectCurrentNoteBookId = (state) => state.notebook.docId; 
-
+export const selectNotes = (state) => state.notebook.notes;
 
 export default notebookSlice.reducer; 

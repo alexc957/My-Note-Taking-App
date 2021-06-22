@@ -28,12 +28,28 @@ context('create notes',()=> {
     it("it should input a markdown text",()=>{
         cy.get('[data-cy=notes]').first().click()
         const markdown = "# Hello{enter}## This is a mardown{enter}1. sdfsd{enter}2. dfsdf"
+        cy.get('[data-testid=input-markdown]').clear()
         cy.get('[data-testid=input-markdown]').type(markdown)
-        cy.get('[data-testid=preview]').children().should('have.length',4);
+        cy.get('[data-testid=preview]').children().should('have.length',3);
         const today = new Date() 
         cy.get('[data-testid=save-note]').click()
         cy.get('[data-testid=saved-at]').should('have.text', today.toDateString())
 
 
+    })
+
+    it("should delete a note",()=>{
+        cy.wait(2000)
+
+        cy.get('[data-cy=notebook]').first().click()
+        cy.wait(1000)
+        cy.get('[data-testid=new-note]').click()
+        const title = 'a new note'+Math.floor(Math.random()*1000)
+        cy.get('[data-testid=input-note]').type(`${title}{enter}`)
+        cy.get(`[data-testid=note-${title.replace(/ /g,'-')}]`).click()
+        cy.get('[data-testid=delete-note]').click()
+        cy.wait(1000)
+        cy.get(`[data-testid=note-${title.replace(/ /g,'-')}]`).should('not.exist');
+        
     })
 })

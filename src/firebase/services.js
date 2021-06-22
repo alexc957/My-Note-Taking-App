@@ -43,3 +43,7 @@ export async function addBodytoNote(noteId, body) {
     
 }
 
+export async function deleteNoteById(id) {
+    await firebase.firestore().collection('notes').doc(id).delete()    
+}
+

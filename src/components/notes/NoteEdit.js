@@ -1,13 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import {selectBody, selectNoteId, setBody, setCreatedAt} from '../../features/Markdown/markdownSlice'
-import { addBodytoNote } from '../../firebase/services'
+import FirebaseContext from '../../context/firebase'
+import {selectBody, selectNoteId, setBody, setCreatedAt, setNoteId} from '../../features/Markdown/markdownSlice'
+import { selectCurrentNoteBookId, setNotes } from '../../features/Notebook/notebookSlide'
+import { addBodytoNote, deleteNoteById } from '../../firebase/services'
 export default function NoteEdit() {
-
+    const firebase = useContext(FirebaseContext)
     const dispatch = useDispatch()
     const body = useSelector(selectBody)
     const noteId = useSelector(selectNoteId);
-    
+    const currentNotebookId = useSelector(selectCurrentNoteBookId)
 
     console.log('noteId',noteId);
     if(!noteId){
@@ -22,6 +24,15 @@ export default function NoteEdit() {
         
 
     }
+
+    const deleteNote =async ()=>{
+        try{
+            await deleteNoteById(noteId)
+            dispatch(setNoteId(''))
+            const response = await firebase.firestore().collection('notes').where('notebookId','==',currentNotebookId).get()
+            dispatch(setNotes(response.docs.map((item)=>({id: item.id,...item.data()}))))
+        }catch(e){}
+    }
     
     return (
         <div data-testid="edit" className="w-1/3 h-2/3 border-2 justify-between rounded-large bg-gray shadow-2xl flex flex-col">
@@ -32,8 +43,8 @@ export default function NoteEdit() {
             </textarea>
 
             <span className="flex flex-row justify-around mb-8">
-                <button className="bg-blue-dark w-16 rounded-large text-primary" onClick={saveNote}>Save</button>
-                <button className="bg-red text-primary w-16 rounded-large">Delete</button>
+                <button className="bg-blue-dark w-16 rounded-large text-primary" data-testid="save-note" onClick={saveNote}>Save</button>
+                <button className="bg-red text-primary w-16 rounded-large" data-testid="delete-note" onClick={deleteNote}>Delete</button>
 
             </span>
 

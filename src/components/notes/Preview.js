@@ -12,9 +12,9 @@ export default function Preview() {
     return (
         
         
-        <div data-testid="preview" className="w-1/3 h-2/3 border-2 ml-4 rounded-large p-8 bg-gray shadow-2xl"> 
-            {createAt && <p>Create at: {createAt}</p>} 
-            
+        <div data-testid="preview" className="w-1/3 h-2/3 border-2 ml-4 rounded-large p-8 bg-gray shadow-2xl overflow-y-auto overflow-x-auto "> 
+            {createAt && <p className="text-sm" data-testid="saved-at">{createAt}</p>} 
+                
             <ReactMarkdown>{body}</ReactMarkdown>
         </div>
         
