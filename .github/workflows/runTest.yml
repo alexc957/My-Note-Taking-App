@@ -16,6 +16,10 @@ jobs:
           with:
               install: npm install
               start: npm start
+              record: true
+          env:
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            GIHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN  }}
         - name: generate report 
           run: npx nyc report
         - name: upload to codecov 
