@@ -1,4 +1,4 @@
-import { firebase, FieldValue} from "./index";
+import { firebase} from "./index";
 
 export async function createNotebooksByUserId (userDocId,notebookTitle ){
 
@@ -10,6 +10,8 @@ export async function createNotebooksByUserId (userDocId,notebookTitle ){
        
         notes: []
     })
+
+    return notebook
 
     
 

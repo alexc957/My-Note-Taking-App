@@ -11,11 +11,11 @@ export default function NotesSection() {
     const [newNote, setNewNote] = useState(false)
     const [title, setTitle] = useState('')
     const dispatch = useDispatch()
-    const noteId = useSelector(selectNoteId)
+   // const noteId = useSelector(selectNoteId)
     const notes = useSelector(selectNotes);
     
     
-    const firebase = useContext(FirebaseContext);
+    //const firebase = useContext(FirebaseContext);
 
     
     /*useEffect(()=>{
@@ -61,9 +61,10 @@ export default function NotesSection() {
         
         const selectedNote = notes[index]
       
-            console.log('selected note', selectedNote);
+         
             dispatch(setNoteId(selectedNote.id))
-            dispatch(setBody(selectedNote.body))
+           
+            dispatch(setBody(selectedNote.body? selectedNote.body : ''))
         
     
     

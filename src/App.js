@@ -43,8 +43,8 @@ function App() {
           {!userMail? <Login /> : <Redirect to="/notes"/> }
         </Route>
         <Route path="/notes">
-          { /* userMail? <MainPage /> : <Redirect to="/"/>  */} 
-          <MainPage />
+          {  userMail? <MainPage /> : <Redirect to="/"/>  } 
+          
         </Route>
         <Route path="/">
           <LandinPage />

@@ -11,6 +11,7 @@ context('login page',()=> {
         cy.get('[data-testid=input-mail]').type('testing@mail.com')
         cy.get('[data-testid=input-password]').type("Alex1995")
         cy.get('[data-testid=submit]').click()
+        cy.wait(2000)
 
         cy.url().should('eq','http://localhost:3000/#/notes')
 

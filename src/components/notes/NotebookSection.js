@@ -15,7 +15,7 @@ export default function NotebookSection() {
     const currentMail = useSelector(selectUserEmail);
     const firebase = useContext(FirebaseContext);
     const distpatch = useDispatch()
-    const currentNotebookId = useSelector(selectCurrentNoteBookId)
+   // const currentNotebookId = useSelector(selectCurrentNoteBookId)
 
     
 
@@ -26,7 +26,7 @@ export default function NotebookSection() {
                 const getNotebooks = await firebase.firestore().collection("notebooks").where("createdBy",'==',currentMail).get()
            
                 setNotebooks(getNotebooks.docs.map((e)=>({id: e.id,...e.data()})))
-                setNewNotebook(false)
+               // setNewNotebook(false)
 
             } catch(e){
              
@@ -44,8 +44,9 @@ export default function NotebookSection() {
             if(editIndex===-1){
                 try{
                     const newNotebookDoc = await createNotebooksByUserId(currentMail, title)
-                    setNotebooks([...notebooks, {id:newNotebookDoc, title: title}])
+                    setNotebooks([...notebooks, {id:newNotebookDoc.id, title: title}])
                     setTitle('')
+                    setNewNotebook(false)
 
                 }catch(e){
 
@@ -81,9 +82,10 @@ export default function NotebookSection() {
 
     const handleClick = async (event,index) => {
         if(event.detail===1){
-            
-            distpatch(setNotebook(notebooks[index].id))
-            const response = await firebase.firestore().collection('notes').where('notebookId','==',currentNotebookId).get()
+            //console.log('current ntoebook',currentNotebookId);
+            //console.log('current',notebooks[index].id);
+           distpatch(setNotebook(notebooks[index].id))
+            const response = await firebase.firestore().collection('notes').where('notebookId','==',notebooks[index].id).get()
             distpatch(setNotes(response.docs.map((item)=>({id: item.id,...item.data()}))))
             distpatch(setNoteId(''))
          
