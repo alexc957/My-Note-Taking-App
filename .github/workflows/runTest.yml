@@ -1,0 +1,28 @@
+name: run cypress test
+
+on:
+  push:
+      branches: [ develop ]
+    
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Cypress run
+          uses: cypress-io/github-action@v2
+          with:
+              install: npm install
+              start: npm start
+              record: true
+          env:
+            CYPRESS_RECORD_KEY: ${{ secrets.CYPRESS_RECORD_KEY }}
+            GIHUB_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN  }}
+        - name: generate report 
+          run: npx nyc report
+        - name: upload to codecov 
+          uses: codecov/codecov-action@v1
+
+

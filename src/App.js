@@ -15,14 +15,14 @@ import LandinPage from './pages/LandinPage';
 import FirebaseContext from './context/firebase';
 import {firebase} from './firebase/index';
 import { useSelector } from 'react-redux';
-import { selectDocId } from './features/User/userSlice';
+import {  selectUserEmail } from './features/User/userSlice';
+
+
 
 
 function App() {
 
-  const userDocId = useSelector(selectDocId);
-
- 
+  const userMail = useSelector(selectUserEmail); 
   
   return (
     
@@ -34,16 +34,17 @@ function App() {
    
        <Switch>
         <Route path="/signup">
-        {!userDocId? <SignUp/> : <Redirect to="/notes"/> }
+        {!userMail? <SignUp/> : <Redirect to="/notes"/> }
           
         </Route>
         <Route path="/login">
           
           
-          {!userDocId? <Login /> : <Redirect to="/notes"/> }
+          {!userMail? <Login /> : <Redirect to="/notes"/> }
         </Route>
         <Route path="/notes">
-          {userDocId? <MainPage /> : <Redirect to="/"/> } 
+          {  userMail? <MainPage /> : <Redirect to="/"/>  } 
+          
         </Route>
         <Route path="/">
           <LandinPage />

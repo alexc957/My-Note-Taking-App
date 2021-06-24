@@ -24,9 +24,9 @@ export default function Login() {
         try{
             if(email && password){
                 const {user} = await firebase.auth().signInWithEmailAndPassword(email, password)
-                const userDetails = await firebase.firestore().collection('users').where('email', "==",user.email).get()
+               // const userDetails = await firebase.firestore().collection('users').where('email', "==",user.email).get()
               //  console.log('what is userDetails',userDetails.docs[0].id);
-               dispatch(logInUser(userDetails.docs[0].id))
+               dispatch(logInUser(user.email))
 
                 history.push('/notes')
 
@@ -49,7 +49,7 @@ export default function Login() {
                 <div className="border-2 w-1/3  rounded-large m-4 shadow-lg bg-gray h-96">
                 <h3 className="text-center" data-testid="title">Log In</h3>
 
-                {error && <p className="text-sm text-error text-center">{error}</p>}
+                {error && <p className="text-sm text-error text-center" data-testid="error-message">{error}</p>}
 
                 <form className="flex flex-col m-4" onSubmit={handleLogin}>
                     <label htmlFor="email" data-testid="email">Email</label>
@@ -58,7 +58,8 @@ export default function Login() {
                         value={email} 
                         type="email" 
                         onChange={({target})=>setEmail(target.value)}
-                        className="border-2 rounded-lg pb-2 mb-8"/>
+                        className="border-2 rounded-lg pb-2 mb-8"
+                        data-testid="input-mail"/>
 
                   
 
@@ -68,12 +69,13 @@ export default function Login() {
                         value={password} 
                         type="password" 
                         onChange={({target})=>setPassword(target.value)}
-                        className="border-2 rounded-lg pb-2 mb-8"/>
+                        className="border-2 rounded-lg pb-2 mb-8"
+                        data-testid="input-password"/>
 
 
                     <div className="flex flex-row items-center pb-4">
                         
-                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8">Sign Up</button>
+                    <button type="submit" className="rounded-lg w-24 h-12 bg-blue-dark text-primary mr-8" data-testid="submit">Sign Up</button>
                    
                     </div>
 
