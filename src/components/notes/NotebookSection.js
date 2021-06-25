@@ -3,12 +3,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import FirebaseContext from '../../context/firebase'
 import { selectUserEmail } from '../../features/User/userSlice'
 import {createNotebooksByUserId, editTitle} from '../../firebase/services'
-import {selectCurrentNoteBookId, setNotebook, setNotes} from '../../features/Notebook/notebookSlide'
+import {selectCurrentNoteBookId, selectNotebooks, setNotebook, setNotebooks, setNotes} from '../../features/Notebook/notebookSlide'
 import { setNoteId } from '../../features/Markdown/markdownSlice'
  
 
 export default function NotebookSection() {
-    const [notebooks, setNotebooks] = useState([])
+    //const [notebooks, setNotebooks] = useState([])
     const [newNotebook, setNewNotebook] = useState(false)
     const [title, setTitle] = useState('')
     const [editIndex, setEditIndex] = useState(-1)
@@ -17,7 +17,7 @@ export default function NotebookSection() {
     const distpatch = useDispatch()
    // const currentNotebookId = useSelector(selectCurrentNoteBookId)
 
-    
+    const notebooks = useSelector(selectNotebooks);
 
 
     useEffect(()=> {
@@ -25,7 +25,7 @@ export default function NotebookSection() {
             try {
                 const getNotebooks = await firebase.firestore().collection("notebooks").where("createdBy",'==',currentMail).get()
            
-                setNotebooks(getNotebooks.docs.map((e)=>({id: e.id,...e.data()})))
+                distpatch(setNotebooks(getNotebooks.docs.map((e)=>({id: e.id,...e.data()}))))
                // setNewNotebook(false)
 
             } catch(e){
@@ -44,7 +44,7 @@ export default function NotebookSection() {
             if(editIndex===-1){
                 try{
                     const newNotebookDoc = await createNotebooksByUserId(currentMail, title)
-                    setNotebooks([...notebooks, {id:newNotebookDoc.id, title: title}])
+                    distpatch(setNotebooks([...notebooks, {id:newNotebookDoc.id, title: title}]))
                     setTitle('')
                     setNewNotebook(false)
 
@@ -58,14 +58,14 @@ export default function NotebookSection() {
                  
                 
                 try{
-                    setNotebooks([...notebooks.map((notebook,index)=> {
+                   distpatch(setNotebooks([...notebooks.map((notebook,index)=> {
                         if(index===editIndex){
                             notebook.title = title 
                             return notebook 
         
                         }
                         return notebook
-                    })])
+                    })]))
                     await editTitle(notebooks[editIndex].id,title)
                     setEditIndex(-1)
                     setTitle('')

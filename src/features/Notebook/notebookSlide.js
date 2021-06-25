@@ -5,7 +5,8 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
     docId: '',
-    notes: []
+    notes: [],
+    notebooks: []
     
 
 }
@@ -26,6 +27,14 @@ export const notebookSlice = createSlice({
         },
         setNotes: (state,action)=>{
             state.notes = action.payload;
+        },
+        setNotebooks: (state, action) =>{
+            state.notebooks = action.payload;
+        },
+        updateNotebooks: (state, action) => {
+           // console.log('state.notebooks',state.notebooks)
+            //console.log('action.payload',)
+            state.notebooks = state.notebooks.filter((notebook)=> notebook.id!=action.payload)
         }
 
         
@@ -35,10 +44,10 @@ export const notebookSlice = createSlice({
 })
 
 
-export const {setNotebook,setNotes}  = notebookSlice.actions;
+export const {setNotebook,setNotes, setNotebooks,updateNotebooks}  = notebookSlice.actions;
 
 
 export const selectCurrentNoteBookId = (state) => state.notebook.docId; 
 export const selectNotes = (state) => state.notebook.notes;
-
+export const selectNotebooks = (state) => state.notebook.notebooks;
 export default notebookSlice.reducer; 

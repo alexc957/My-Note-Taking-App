@@ -49,3 +49,15 @@ export async function deleteNoteById(id) {
     await firebase.firestore().collection('notes').doc(id).delete()    
 }
 
+
+export async function deleteNotebookById(notebookId) {
+
+    const notes = await firebase.firestore().collection('notes').where('notebookId','==',notebookId).get()
+    notes.docs.forEach(async (doc)=>{
+        await firebase.firestore().collection('notes').doc(doc.id).delete()
+    })
+    await firebase.firestore().collection('notebooks').doc(notebookId).delete()
+    
+        
+}
+
