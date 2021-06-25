@@ -21,7 +21,7 @@ export default function NavBar() {
         <nav className="w-screen h-12 bg-blue flex flex-row justify-between items-center">
             <Link className="bg-blue text-primary text-sm px-8"  to="/">Home</Link>
             <div className="flex flex-row-reverse items-center">
-            {userId? (<button className="bg-blue text-primary text-sm pr-8" onClick={handleLogout}>Log Out</button>)
+            {userId? (<button className="bg-blue text-primary text-sm pr-8" data-testid="logout" onClick={handleLogout}>Log Out</button>)
             :
             (<><Link  className="bg-blue text-primary text-sm pr-8" to="/login">Log In</Link> <Link className="bg-blue text-primary text-sm pr-8" to="/signup">Sign Up</Link> </>)}
 
