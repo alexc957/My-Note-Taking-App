@@ -30,7 +30,7 @@ export default function SignUp() {
                     email: email, username: username, notebooks: []
                 })*/
                 
-                console.log('something');
+                //console.log('something');
             
 
            

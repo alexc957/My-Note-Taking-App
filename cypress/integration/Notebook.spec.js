@@ -41,6 +41,16 @@ context('Creating notebooks',()=>{
 
     })
 
+
+    it('should delete a notebok',()=> {
+        cy.wait(100)
+        cy.get('[data-cy=notebook]').last().click()
+        cy.get('[data-testid=delete-notebook]').click()
+        cy.get('[data-cy=notes]').should('not.exist')
+        
+
+    })
+
     
 
     
