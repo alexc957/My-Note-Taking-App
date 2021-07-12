@@ -35,7 +35,7 @@ export default function NoteEdit() {
     }
     
     return (
-        <div data-testid="edit" className="w-1/3 h-2/3 border-2 justify-between rounded-large bg-gray shadow-2xl flex flex-col">
+        <div data-testid="edit" className="w-2/5 h-4/5 border-2 justify-between rounded-large bg-gray shadow-2xl flex flex-col">
             <h3 className="text-center"> Markdown</h3>
             
             <textarea value={body} data-testid="input-markdown" className="mx-4 h-2/3 p-2" onChange={({target})=> dispatch(setBody(target.value))}>
